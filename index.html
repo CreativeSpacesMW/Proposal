@@ -64,37 +64,10 @@
         animation: float 20s ease-in-out infinite;
     }
 
-    .tri-1 {
-        top: 10%;
-        right: 5%;
-        border-width: 0 50px 86.6px 50px;
-        border-color: transparent transparent var(--accent-cyan) transparent;
-        animation-delay: 0s;
-    }
-
-    .tri-2 {
-        bottom: 15%;
-        left: 8%;
-        border-width: 86.6px 50px 0 50px;
-        border-color: var(--accent-cyan) transparent transparent transparent;
-        animation-delay: 5s;
-    }
-
-    .tri-3 {
-        top: 40%;
-        right: 15%;
-        border-width: 0 30px 51.96px 30px;
-        border-color: transparent transparent var(--accent-cyan) transparent;
-        animation-delay: 10s;
-    }
-
-    .tri-4 {
-        top: 60%;
-        left: 20%;
-        border-width: 51.96px 30px 0 30px;
-        border-color: var(--accent-cyan) transparent transparent transparent;
-        animation-delay: 7s;
-    }
+    .tri-1 { top: 10%; right: 5%; border-width: 0 50px 86.6px 50px; border-color: transparent transparent var(--accent-cyan) transparent; animation-delay: 0s; }
+    .tri-2 { bottom: 15%; left: 8%; border-width: 86.6px 50px 0 50px; border-color: var(--accent-cyan) transparent transparent transparent; animation-delay: 5s; }
+    .tri-3 { top: 40%; right: 15%; border-width: 0 30px 51.96px 30px; border-color: transparent transparent var(--accent-cyan) transparent; animation-delay: 10s; }
+    .tri-4 { top: 60%; left: 20%; border-width: 51.96px 30px 0 30px; border-color: var(--accent-cyan) transparent transparent transparent; animation-delay: 7s; }
 
     @keyframes float {
         0%, 100% { transform: translateY(0px) rotate(0deg); }
@@ -117,13 +90,13 @@
     /* Logo Section */
     .logo-section {
         text-align: center;
-        margin-bottom: 40px; /* Reduced for better vertical space */
+        margin-bottom: 40px;
         animation: fadeInDown 1s ease-out;
     }
 
     .logo-container {
         display: inline-block;
-        padding: 15px; /* Reduced padding */
+        padding: 15px;
         background: rgba(0, 231, 242, 0.05);
         border: 2px solid var(--accent-cyan);
         border-radius: 15px;
@@ -136,10 +109,7 @@
     .logo-container::before {
         content: '';
         position: absolute;
-        top: -2px;
-        left: -2px;
-        right: -2px;
-        bottom: -2px;
+        top: -2px; left: -2px; right: -2px; bottom: -2px;
         background: linear-gradient(45deg, var(--accent-cyan), transparent, var(--accent-cyan));
         border-radius: 15px;
         z-index: -1;
@@ -154,7 +124,7 @@
 
     /* Half-size logo logic */
     .logo-section img {
-        width: 100px; /* Desktop Size (50% of original 200px) */
+        width: 100px; 
         height: 100px;
         object-fit: contain;
         display: block;
@@ -167,10 +137,7 @@
         color: var(--accent-cyan);
         text-transform: uppercase;
         letter-spacing: 4px;
-        text-shadow: 
-            0 0 10px var(--glow-cyan),
-            0 0 20px var(--glow-cyan),
-            0 0 40px var(--glow-cyan);
+        text-shadow: 0 0 10px var(--glow-cyan), 0 0 20px var(--glow-cyan);
         margin-bottom: 15px;
     }
 
@@ -212,17 +179,12 @@
     .nav-card::before {
         content: '';
         position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
+        top: 0; left: -100%; width: 100%; height: 100%;
         background: linear-gradient(90deg, transparent, rgba(0, 231, 242, 0.2), transparent);
         transition: left 0.5s ease;
     }
 
-    .nav-card:hover::before {
-        left: 100%;
-    }
+    .nav-card:hover::before { left: 100%; }
 
     .nav-card:hover {
         transform: translateY(-10px) scale(1.02);
@@ -260,9 +222,7 @@
         transition: transform 0.3s ease;
     }
 
-    .nav-card:hover .arrow {
-        transform: translateX(10px);
-    }
+    .nav-card:hover .arrow { transform: translateX(10px); }
 
     /* Footer */
     .footer {
@@ -275,11 +235,7 @@
         z-index: 10;
     }
 
-    .footer p {
-        color: var(--text-muted);
-        font-size: 0.9rem;
-        margin-bottom: 10px;
-    }
+    .footer p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px; }
 
     .footer-links {
         display: flex;
@@ -302,60 +258,23 @@
     }
 
     /* Animations */
-    @keyframes fadeInDown {
-        from { opacity: 0; transform: translateY(-30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
     /* Responsive Design Updates */
     @media (max-width: 768px) {
-        .container {
-            padding: 20px 15px;
-        }
-
-        .logo-section {
-            margin-bottom: 30px;
-        }
-
-        .logo-section img {
-            width: 80px; /* Even smaller for mobile */
-            height: 80px;
-        }
-
-        .nav-grid {
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        .nav-card {
-            padding: 30px 20px;
-        }
+        .logo-section img { width: 80px; height: 80px; }
+        .nav-grid { grid-template-columns: 1fr; gap: 20px; }
     }
 
     @media (max-width: 480px) {
-        .logo-container {
-            padding: 10px;
-        }
-
-        .logo-section img {
-            width: 65px; /* Ultra-compact for small phones */
-            height: 65px;
-        }
-
-        .company-title {
-            letter-spacing: 2px;
-            font-size: 1.5rem;
-        }
+        .logo-container { padding: 10px; }
+        .logo-section img { width: 65px; height: 65px; }
+        .company-title { letter-spacing: 2px; font-size: 1.5rem; }
     }
-</style>
+    </style>
 </head>
 <body>
-    <!-- Geometric Accents -->
     <div class="geometric-accent">
         <div class="triangle-pattern tri-1"></div>
         <div class="triangle-pattern tri-2"></div>
@@ -364,7 +283,6 @@
     </div>
 
     <div class="container">
-        <!-- Logo Section -->
         <div class="logo-section">
             <div class="logo-container">
                 <img src="icon.png" alt="Creative spacesmw Logo">
@@ -373,9 +291,7 @@
             <p class="company-subtitle">Digital Transformation for Central Poultry (2000) Ltd</p>
         </div>
 
-        <!-- Navigation Cards -->
         <div class="nav-grid">
-            <!-- Proposal Card -->
             <a href="central-poultry-proposal.html" class="nav-card">
                 <span class="nav-card-icon">📋</span>
                 <h2>Project Proposal</h2>
@@ -383,7 +299,6 @@
                 <span class="arrow">→</span>
             </a>
 
-            <!-- Contract Card -->
             <a href="central-poultry-contract.html" class="nav-card">
                 <span class="nav-card-icon">📝</span>
                 <h2>Agreement</h2>
@@ -391,8 +306,7 @@
                 <span class="arrow">→</span>
             </a>
 
-            <!-- App Card -->
-            <a href="https://central-poultry-2000-ltd.vercel.app/" class="nav-card" id="app-link">
+            <a href="https://central-poultry-2000-ltd.vercel.app/" class="nav-card">
                 <span class="nav-card-icon">🚀</span>
                 <h2>Live Demo</h2>
                 <p>Preview the modern platform on Vercel - see the future of Central Poultry online</p>
@@ -401,31 +315,12 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <div class="footer">
         <p>&copy; 2026 Creative spacesmw. All rights reserved.</p>
-        <p>Elevating Malawian Businesses Through Digital Excellence</p>
         <div class="footer-links">
             <a href="mailto:yamiembuna@gmail.com">yamiembuna@gmail.com</a>
             <a href="tel:+265993045177">+265 993 045 177</a>
-            <a href="mailto:nomanadil480@gmail.com">nomanadil480@gmail.com</a>
-            <a href="tel:+265994054621">+265 994 054 621</a>
         </div>
     </div>
-
-    <script>
-        // Add your app URL here
-        document.getElementById('app-link').addEventListener('click', function(e) {
-            // Replace with your actual Vercel URL
-            const appUrl = 'https://your-vercel-app-url.vercel.app';
-            
-            // Uncomment the line below and add your URL when ready
-            // window.open(appUrl, '_blank');
-            
-            // Temporary alert - remove this when you add the URL
-            e.preventDefault();
-            alert('Please update the app URL in the index.html file (line 362)');
-        });
-    </script>
 </body>
 </html>
