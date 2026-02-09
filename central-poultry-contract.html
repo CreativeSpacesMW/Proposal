@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Development Agreement - Central Poultry (2000) Ltd</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -176,6 +178,94 @@
             margin: 0 10px;
             color: var(--accent-cyan);
             font-weight: 600;
+            padding: 2px 5px;
+            outline: none;
+            background: transparent;
+            transition: background 0.3s ease;
+        }
+
+        .date-input:focus,
+        .date-input:hover {
+            background: rgba(0, 231, 242, 0.1);
+        }
+
+        .editable {
+            outline: none;
+            transition: background 0.3s ease;
+            cursor: text;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+
+        .editable:hover {
+            background: rgba(0, 231, 242, 0.05);
+        }
+
+        .editable:focus {
+            background: rgba(0, 231, 242, 0.1);
+            box-shadow: 0 0 10px var(--glow-cyan);
+        }
+
+        /* Download Button */
+        .download-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 30px;
+            background: linear-gradient(135deg, var(--accent-cyan), #0099A3);
+            border: none;
+            border-radius: 50px;
+            color: var(--bg-darker);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px var(--glow-cyan);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px var(--glow-cyan);
+        }
+
+        .download-btn:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .download-btn .icon {
+            font-size: 1.5rem;
+        }
+
+        .download-btn.generating {
+            background: linear-gradient(135deg, #666, #888);
+            cursor: wait;
+        }
+
+        .download-btn.generating::after {
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 3px solid var(--bg-darker);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         /* Parties Section */
@@ -410,6 +500,19 @@
             border-bottom: 2px solid var(--accent-cyan);
             min-width: 200px;
             min-height: 30px;
+            padding: 5px;
+            outline: none;
+            color: var(--accent-cyan);
+            transition: background 0.3s ease;
+        }
+
+        .signature-line .line:hover {
+            background: rgba(0, 231, 242, 0.05);
+        }
+
+        .signature-line .line:focus {
+            background: rgba(0, 231, 242, 0.1);
+            box-shadow: 0 0 10px var(--glow-cyan);
         }
 
         /* Footer */
@@ -474,6 +577,20 @@
             .signature-line label {
                 margin-bottom: 10px;
             }
+
+            .download-container {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .download-btn {
+                padding: 15px 20px;
+                font-size: 0.9rem;
+            }
+
+            .download-btn .icon {
+                font-size: 1.3rem;
+            }
         }
 
         /* Print Styles */
@@ -490,13 +607,17 @@
                 page-break-inside: avoid;
             }
 
-            .geometric-accent, .back-button {
+            .geometric-accent, .back-button, .download-container {
                 display: none;
             }
 
             .header h1 {
                 text-shadow: none;
                 color: #000;
+            }
+
+            .editable {
+                border: none;
             }
         }
     </style>
@@ -522,8 +643,8 @@
         <!-- Agreement Date -->
         <div class="agreement-date">
             <strong>THIS AGREEMENT</strong> is made this 
-            <span class="date-input">___________</span> day of 
-            <span class="date-input">_______________</span>, 2026.
+            <span class="date-input editable" contenteditable="true" data-placeholder="day">_____</span> day of 
+            <span class="date-input editable" contenteditable="true" data-placeholder="month">_________</span>, 2026.
         </div>
 
         <!-- Parties -->
@@ -656,24 +777,24 @@
                 <div class="signature-block">
                     <div class="signature-line">
                         <label>Name:</label>
-                        <div class="line"></div>
+                        <div class="line editable" contenteditable="true"></div>
                     </div>
                     <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Yamikani Mbuna (Project Manager)</p>
                     <div class="signature-line">
                         <label>Date:</label>
-                        <div class="line"></div>
+                        <div class="line editable" contenteditable="true"></div>
                     </div>
                 </div>
 
                 <div class="signature-block">
                     <div class="signature-line">
                         <label>Name:</label>
-                        <div class="line"></div>
+                        <div class="line editable" contenteditable="true"></div>
                     </div>
                     <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Noman Adil (Lead Developer)</p>
                     <div class="signature-line">
                         <label>Date:</label>
-                        <div class="line"></div>
+                        <div class="line editable" contenteditable="true"></div>
                     </div>
                 </div>
             </div>
@@ -685,19 +806,19 @@
                 <div class="signature-block">
                     <div class="signature-line">
                         <label>Name:</label>
-                        <div class="line"></div>
+                        <div class="line editable" contenteditable="true"></div>
                     </div>
                     <div class="signature-line">
                         <label>Title:</label>
-                        <div class="line"></div>
+                        <div class="line editable" contenteditable="true"></div>
                     </div>
                     <div class="signature-line">
                         <label>Signature:</label>
-                        <div class="line"></div>
+                        <div class="line editable" contenteditable="true"></div>
                     </div>
                     <div class="signature-line">
                         <label>Date:</label>
-                        <div class="line"></div>
+                        <div class="line editable" contenteditable="true"></div>
                     </div>
                 </div>
             </div>
@@ -709,5 +830,251 @@
             <p>Digital Transformation Agreement for Central Poultry (2000) Ltd</p>
         </div>
     </div>
+
+    <!-- Download Button -->
+    <div class="download-container">
+        <button class="download-btn" id="downloadPdf">
+            <span class="icon">📄</span>
+            <span>Download PDF</span>
+        </button>
+    </div>
+
+    <script>
+        // PDF Generation Script
+        const downloadBtn = document.getElementById('downloadPdf');
+        
+        downloadBtn.addEventListener('click', async function() {
+            // Change button state
+            downloadBtn.classList.add('generating');
+            downloadBtn.innerHTML = '<span class="icon">⏳</span><span>Generating PDF...</span>';
+            
+            try {
+                // Import jsPDF
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+
+                // Set up document styling
+                const pageWidth = doc.internal.pageSize.getWidth();
+                const pageHeight = doc.internal.pageSize.getHeight();
+                const margin = 20;
+                const contentWidth = pageWidth - (margin * 2);
+                let yPosition = margin;
+
+                // Helper function to add text with word wrap
+                function addText(text, fontSize = 10, isBold = false, isTitle = false) {
+                    doc.setFontSize(fontSize);
+                    doc.setFont('helvetica', isBold ? 'bold' : 'normal');
+                    
+                    if (isTitle) {
+                        // Center aligned title
+                        const textWidth = doc.getTextWidth(text);
+                        const xPosition = (pageWidth - textWidth) / 2;
+                        doc.text(text, xPosition, yPosition);
+                        yPosition += fontSize / 2 + 3;
+                    } else {
+                        // Regular text with word wrap
+                        const lines = doc.splitTextToSize(text, contentWidth);
+                        doc.text(lines, margin, yPosition);
+                        yPosition += (lines.length * (fontSize / 2.5)) + 3;
+                    }
+                    
+                    // Check if we need a new page
+                    if (yPosition > pageHeight - margin) {
+                        doc.addPage();
+                        yPosition = margin;
+                    }
+                }
+
+                function addSpace(amount = 5) {
+                    yPosition += amount;
+                }
+
+                // Get editable content
+                const agreementDay = document.querySelectorAll('.date-input')[0].textContent.trim() || '____';
+                const agreementMonth = document.querySelectorAll('.date-input')[1].textContent.trim() || '____';
+
+                // Title
+                addText('WEBSITE DEVELOPMENT & DIGITAL TRANSFORMATION AGREEMENT', 14, true, true);
+                addSpace(3);
+                
+                // Agreement date
+                addText(`THIS AGREEMENT is made this ${agreementDay} day of ${agreementMonth}, 2026.`, 10, false);
+                addSpace(5);
+
+                // Parties
+                addText('BETWEEN:', 11, true);
+                addSpace(2);
+                addText('Yamikani Mbuna (Creative spacesmw) and Noman Adil (hereinafter referred to as the "Developers"), reachable at +265 993 045 177 / +265 994 054 621.', 10, false);
+                addSpace(3);
+                addText('AND:', 11, true);
+                addSpace(2);
+                addText('Central Poultry (2000) Ltd (hereinafter referred to as the "Client"), with its principal place of business in Malawi.', 10, false);
+                addSpace(8);
+
+                // Section 1: Scope of Work
+                addText('1. SCOPE OF WORK', 12, true);
+                addSpace(3);
+                addText('The Developers agree to provide a comprehensive digital overhaul, including:', 10, false);
+                addSpace(2);
+                const scopeItems = [
+                    'Full Website Development: A modern, responsive platform hosted on high-performance infrastructure.',
+                    'Interactive Logistical Mapping: GPS-enabled map featuring farms, warehouses, and authorized distributors.',
+                    'Direct Ordering System: A digital portal for direct-to-consumer and B2B order inquiries.',
+                    'Brand Digital Redesign: Updating logos and color palettes for optimized online presence.',
+                    'Local SEO: Optimization for high visibility within Malawian search results.',
+                    'Rollout Strategy: Delivery of a formal marketing and launch plan.'
+                ];
+                scopeItems.forEach(item => {
+                    addText('• ' + item, 10, false);
+                    addSpace(1);
+                });
+                addSpace(5);
+
+                // Section 2: Financial Terms
+                addText('2. FINANCIAL TERMS', 12, true);
+                addSpace(3);
+                addText('2.1 Total Project Fee', 11, true);
+                addSpace(2);
+                addText('The Client agrees to pay a total sum of MWK 1,800,000.00 (One Million Eight Hundred Thousand Kwacha).', 10, false);
+                addSpace(3);
+                addText('2.2 Payment Schedule', 11, true);
+                addSpace(2);
+                addText('• Deposit: 50% (MWK 900,000.00) due upon signing this agreement.', 10, false);
+                addSpace(1);
+                addText('• Final Balance: 50% (MWK 900,000.00) due exactly 30 days after the website deployment (the "Live Date").', 10, false);
+                addSpace(8);
+
+                // Section 3: Maintenance & Support
+                addText('3. MAINTENANCE & SUPPORT', 12, true);
+                addSpace(3);
+                addText('3.1 Consultancy: One (1) year of free digital consultancy starting from the Live Date.', 10, false);
+                addSpace(2);
+                addText('3.2 Feature Updates: Five (5) free updates (minor features or technical changes) to be used within three (3) years.', 10, false);
+                addSpace(2);
+                addText('3.3 Training: Formal technical handover and training for the Client\'s I.T. department.', 10, false);
+                addSpace(8);
+
+                // Section 4: Client Responsibilities
+                addText('4. CLIENT RESPONSIBILITIES', 12, true);
+                addSpace(3);
+                addText('The following costs and resources are to be provided/covered by the Client and are not included in the MWK 1,800,000 development fee:', 10, false);
+                addSpace(3);
+                addText('4.1 Infrastructure: All costs related to Domain Registration and Web Hosting subscriptions.', 10, false);
+                addSpace(2);
+                addText('4.2 Logistics: All transport costs related to site visits, farm visits, or physical meetings.', 10, false);
+                addSpace(2);
+                addText('4.3 Content: Delivery of all raw data (distributor lists, pricing, and internal documentation).', 10, false);
+                addSpace(2);
+                addText('4.4 Media Production: The Client shall be responsible for all costs associated with photography and videography, including the provision of cameras, equipment rental, and production-related expenses required for the website\'s visual content.', 10, false);
+                addSpace(8);
+
+                // Section 5: Intellectual Property
+                addText('5. INTELLECTUAL PROPERTY', 12, true);
+                addSpace(3);
+                addText('Upon final payment, ownership of the website\'s visual design and content shall transfer to the Client. The Developers retain the right to showcase the project in professional portfolios.', 10, false);
+                addSpace(8);
+
+                // Section 6: Confidentiality
+                addText('6. CONFIDENTIALITY', 12, true);
+                addSpace(3);
+                addText('Both parties agree to keep all trade secrets, customer data, and internal business logistics strictly confidential.', 10, false);
+                addSpace(8);
+
+                // Section 7: Termination & Delays
+                addText('7. TERMINATION & DELAYS', 12, true);
+                addSpace(3);
+                addText('• If the Client terminates the project before completion, the Deposit remains non-refundable.', 10, false);
+                addSpace(1);
+                addText('• Delays caused by the late provision of content or media from the Client may extend the project timeline.', 10, false);
+                addSpace(8);
+
+                // Section 8: Governing Law
+                addText('8. GOVERNING LAW', 12, true);
+                addSpace(3);
+                addText('This Agreement shall be governed by and construed in accordance with the Laws of Malawi.', 10, false);
+                addSpace(10);
+
+                // Signatures
+                doc.addPage();
+                yPosition = margin;
+                
+                addText('SIGNATORIES', 14, true, true);
+                addSpace(8);
+
+                // Get signature values
+                const devSignatures = document.querySelectorAll('.signature-group')[0].querySelectorAll('.line');
+                const clientSignatures = document.querySelectorAll('.signature-group')[1].querySelectorAll('.line');
+
+                addText('FOR THE DEVELOPERS:', 11, true);
+                addSpace(5);
+                addText('Name: ' + (devSignatures[0].textContent.trim() || '_________________________'), 10, false);
+                addSpace(3);
+                addText('Yamikani Mbuna (Project Manager)', 10, false);
+                addSpace(3);
+                addText('Date: ' + (devSignatures[1].textContent.trim() || '_________________________'), 10, false);
+                addSpace(10);
+
+                addText('Name: ' + (devSignatures[2].textContent.trim() || '_________________________'), 10, false);
+                addSpace(3);
+                addText('Noman Adil (Lead Developer)', 10, false);
+                addSpace(3);
+                addText('Date: ' + (devSignatures[3].textContent.trim() || '_________________________'), 10, false);
+                addSpace(12);
+
+                addText('FOR THE CLIENT (CENTRAL POULTRY 2000 LTD):', 11, true);
+                addSpace(5);
+                addText('Authorized Signatory Name: ' + (clientSignatures[0].textContent.trim() || '_________________________'), 10, false);
+                addSpace(3);
+                addText('Title: ' + (clientSignatures[1].textContent.trim() || '_________________________'), 10, false);
+                addSpace(3);
+                addText('Signature: ' + (clientSignatures[2].textContent.trim() || '_________________________'), 10, false);
+                addSpace(3);
+                addText('Date: ' + (clientSignatures[3].textContent.trim() || '_________________________'), 10, false);
+
+                // Save the PDF
+                doc.save('Central_Poultry_Development_Agreement.pdf');
+
+                // Reset button
+                setTimeout(() => {
+                    downloadBtn.classList.remove('generating');
+                    downloadBtn.innerHTML = '<span class="icon">✅</span><span>PDF Downloaded!</span>';
+                    
+                    setTimeout(() => {
+                        downloadBtn.innerHTML = '<span class="icon">📄</span><span>Download PDF</span>';
+                    }, 2000);
+                }, 500);
+
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF. Please try again.');
+                downloadBtn.classList.remove('generating');
+                downloadBtn.innerHTML = '<span class="icon">📄</span><span>Download PDF</span>';
+            }
+        });
+
+        // Add placeholder behavior for empty editable fields
+        document.querySelectorAll('.editable').forEach(field => {
+            field.addEventListener('focus', function() {
+                if (this.textContent === '_____' || this.textContent === '_________') {
+                    this.textContent = '';
+                }
+            });
+            
+            field.addEventListener('blur', function() {
+                if (this.textContent.trim() === '') {
+                    const placeholder = this.getAttribute('data-placeholder');
+                    if (placeholder === 'day') {
+                        this.textContent = '_____';
+                    } else if (placeholder === 'month') {
+                        this.textContent = '_________';
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
