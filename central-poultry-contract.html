@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Agreement - Central Poultry (2000) Ltd</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #000B18;
+            --bg-darker: #0F0F0F;
+            --accent-cyan: #00E7F2;
+            --text-primary: #E8F4F8;
+            --text-muted: #8BA3B0;
+            --glow-cyan: rgba(0, 231, 242, 0.5);
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Malawian Geometric Background Pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            z-index: 0;
+            background-image: 
+                repeating-linear-gradient(45deg, var(--accent-cyan) 0px, transparent 2px, transparent 20px, var(--accent-cyan) 22px),
+                repeating-linear-gradient(-45deg, var(--accent-cyan) 0px, transparent 2px, transparent 20px, var(--accent-cyan) 22px);
+            pointer-events: none;
+        }
+
+        /* Animated geometric shapes */
+        .geometric-accent {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .triangle-pattern {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            opacity: 0.08;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .tri-1 {
+            top: 10%;
+            right: 5%;
+            border-width: 0 50px 86.6px 50px;
+            border-color: transparent transparent var(--accent-cyan) transparent;
+            animation-delay: 0s;
+        }
+
+        .tri-2 {
+            bottom: 15%;
+            left: 8%;
+            border-width: 86.6px 50px 0 50px;
+            border-color: var(--accent-cyan) transparent transparent transparent;
+            animation-delay: 5s;
+        }
+
+        .tri-3 {
+            top: 40%;
+            right: 15%;
+            border-width: 0 30px 51.96px 30px;
+            border-color: transparent transparent var(--accent-cyan) transparent;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(15deg); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 12px 25px;
+            background: rgba(0, 231, 242, 0.1);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 8px;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(0, 231, 242, 0.2);
+            box-shadow: 0 5px 20px var(--glow-cyan);
+            transform: translateX(-5px);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 20px;
+            border-bottom: 2px solid var(--accent-cyan);
+            box-shadow: 0 10px 50px var(--glow-cyan);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 900;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 
+                0 0 10px var(--glow-cyan),
+                0 0 20px var(--glow-cyan),
+                0 0 40px var(--glow-cyan);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .header .subtitle {
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            color: var(--text-muted);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        /* Agreement Date */
+        .agreement-date {
+            background: rgba(0, 231, 242, 0.05);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .agreement-date strong {
+            color: var(--accent-cyan);
+        }
+
+        .date-input {
+            display: inline-block;
+            border-bottom: 2px solid var(--accent-cyan);
+            min-width: 150px;
+            margin: 0 10px;
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Parties Section */
+        .parties {
+            background: rgba(15, 15, 15, 0.6);
+            border-left: 4px solid var(--accent-cyan);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 231, 242, 0.1);
+        }
+
+        .party {
+            margin-bottom: 25px;
+        }
+
+        .party:last-child {
+            margin-bottom: 0;
+        }
+
+        .party-label {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .party-details {
+            color: var(--text-primary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 50px;
+            padding: 35px;
+            background: rgba(15, 15, 15, 0.6);
+            border-left: 4px solid var(--accent-cyan);
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 231, 242, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, transparent 0%, var(--glow-cyan) 100%);
+            opacity: 0.05;
+            clip-path: polygon(100% 0, 0 0, 100% 100%);
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+        .section:nth-child(6) { animation-delay: 0.6s; }
+        .section:nth-child(7) { animation-delay: 0.7s; }
+        .section:nth-child(8) { animation-delay: 0.8s; }
+
+        .section-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-cyan);
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px var(--glow-cyan);
+        }
+
+        .section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: var(--accent-cyan);
+            margin-top: 25px;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .section p {
+            margin-bottom: 18px;
+            color: var(--text-primary);
+            font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+        }
+
+        .section ul {
+            list-style: none;
+            margin: 20px 0;
+            padding-left: 0;
+        }
+
+        .section ul li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+        }
+
+        .section ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+        }
+
+        /* Highlight Box for Financial Terms */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 231, 242, 0.1), rgba(0, 231, 242, 0.05));
+            border: 2px solid var(--accent-cyan);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            position: relative;
+            box-shadow: 0 0 30px var(--glow-cyan);
+        }
+
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--accent-cyan), transparent, var(--accent-cyan));
+            border-radius: 12px;
+            z-index: -1;
+            opacity: 0.3;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .price {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 900;
+            color: var(--accent-cyan);
+            text-align: center;
+            margin: 15px 0;
+            text-shadow: 0 0 20px var(--glow-cyan);
+        }
+
+        /* Signature Section */
+        .signatures {
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(15, 15, 15, 0.8);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 12px;
+            box-shadow: 0 0 40px var(--glow-cyan);
+        }
+
+        .signature-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            text-align: center;
+            text-shadow: 0 0 15px var(--glow-cyan);
+        }
+
+        .signature-group {
+            margin-bottom: 50px;
+        }
+
+        .signature-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .signature-label {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-cyan);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .signature-block {
+            background: rgba(0, 231, 242, 0.03);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .signature-line {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .signature-line label {
+            color: var(--text-muted);
+            min-width: 80px;
+            margin-right: 15px;
+            font-size: 0.95rem;
+        }
+
+        .signature-line .line {
+            flex: 1;
+            border-bottom: 2px solid var(--accent-cyan);
+            min-width: 200px;
+            min-height: 30px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 2px solid var(--accent-cyan);
+            box-shadow: 0 -10px 50px var(--glow-cyan);
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 15px;
+            }
+
+            .section {
+                padding: 25px 20px;
+            }
+
+            .header {
+                padding: 30px 15px;
+            }
+
+            .signatures {
+                padding: 30px 20px;
+            }
+
+            .signature-line {
+                flex-direction: column;
+            }
+
+            .signature-line label {
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .section, .parties, .signatures {
+                background: white;
+                border: 1px solid #ccc;
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+
+            .geometric-accent, .back-button {
+                display: none;
+            }
+
+            .header h1 {
+                text-shadow: none;
+                color: #000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Geometric Accents -->
+    <div class="geometric-accent">
+        <div class="triangle-pattern tri-1"></div>
+        <div class="triangle-pattern tri-2"></div>
+        <div class="triangle-pattern tri-3"></div>
+    </div>
+
+    <div class="container">
+        <!-- Back Button -->
+        <a href="index.html" class="back-button">← Back to Home</a>
+
+        <!-- Header -->
+        <div class="header">
+            <h1>Website Development &amp; Digital Transformation Agreement</h1>
+            <p class="subtitle">Legal Contract for Central Poultry (2000) Ltd</p>
+        </div>
+
+        <!-- Agreement Date -->
+        <div class="agreement-date">
+            <strong>THIS AGREEMENT</strong> is made this 
+            <span class="date-input">___________</span> day of 
+            <span class="date-input">_______________</span>, 2026.
+        </div>
+
+        <!-- Parties -->
+        <div class="parties">
+            <div class="party">
+                <span class="party-label">Between:</span>
+                <div class="party-details">
+                    <strong>Yamikani Mbuna (Creative spacesmw)</strong> and <strong>Noman Adil</strong><br>
+                    (hereinafter referred to as the "Developers")<br>
+                    Reachable at: +265 993 045 177 / +265 994 054 621
+                </div>
+            </div>
+            <div class="party">
+                <span class="party-label">And:</span>
+                <div class="party-details">
+                    <strong>Central Poultry (2000) Ltd</strong><br>
+                    (hereinafter referred to as the "Client")<br>
+                    With its principal place of business in Malawi
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Scope of Work -->
+        <div class="section">
+            <div class="section-number">1.</div>
+            <h2>Scope of Work</h2>
+            <p>The Developers agree to provide a comprehensive digital overhaul, including:</p>
+            <ul>
+                <li><strong>Full Website Development:</strong> A modern, responsive platform hosted on high-performance infrastructure.</li>
+                <li><strong>Interactive Logistical Mapping:</strong> GPS-enabled map featuring farms, warehouses, and authorized distributors.</li>
+                <li><strong>Direct Ordering System:</strong> A digital portal for direct-to-consumer and B2B order inquiries.</li>
+                <li><strong>Brand Digital Redesign:</strong> Updating logos and color palettes for optimized online presence.</li>
+                <li><strong>Local SEO:</strong> Optimization for high visibility within Malawian search results.</li>
+                <li><strong>Rollout Strategy:</strong> Delivery of a formal marketing and launch plan.</li>
+            </ul>
+        </div>
+
+        <!-- Section 2: Financial Terms -->
+        <div class="section">
+            <div class="section-number">2.</div>
+            <h2>Financial Terms</h2>
+            
+            <h3>2.1 Total Project Fee</h3>
+            <p>The Client agrees to pay a total sum of:</p>
+            <div class="highlight-box">
+                <div class="price">MWK 1,800,000.00</div>
+                <p style="text-align: center; color: var(--text-muted); font-size: 0.95rem;">(One Million Eight Hundred Thousand Kwacha)</p>
+            </div>
+
+            <h3>2.2 Payment Schedule</h3>
+            <ul>
+                <li><strong>Deposit:</strong> 50% (MWK 900,000.00) due upon signing this agreement.</li>
+                <li><strong>Final Balance:</strong> 50% (MWK 900,000.00) due exactly 30 days after the website deployment (the "Live Date").</li>
+            </ul>
+        </div>
+
+        <!-- Section 3: Maintenance & Support -->
+        <div class="section">
+            <div class="section-number">3.</div>
+            <h2>Maintenance &amp; Support</h2>
+            
+            <h3>3.1 Consultancy</h3>
+            <p>One (1) year of free digital consultancy starting from the Live Date.</p>
+
+            <h3>3.2 Feature Updates</h3>
+            <p>Five (5) free updates (minor features or technical changes) to be used within three (3) years.</p>
+
+            <h3>3.3 Training</h3>
+            <p>Formal technical handover and training for the Client's I.T. department.</p>
+        </div>
+
+        <!-- Section 4: Client Responsibilities -->
+        <div class="section">
+            <div class="section-number">4.</div>
+            <h2>Client Responsibilities</h2>
+            <p>The following costs and resources are to be provided/covered by the Client and are <strong>not included</strong> in the MWK 1,800,000 development fee:</p>
+
+            <h3>4.1 Infrastructure</h3>
+            <p>All costs related to Domain Registration and Web Hosting subscriptions.</p>
+
+            <h3>4.2 Logistics</h3>
+            <p>All transport costs related to site visits, farm visits, or physical meetings.</p>
+
+            <h3>4.3 Content</h3>
+            <p>Delivery of all raw data (distributor lists, pricing, and internal documentation).</p>
+
+            <h3>4.4 Media Production</h3>
+            <p>The Client shall be responsible for all costs associated with photography and videography, including the provision of cameras, equipment rental, and production-related expenses required for the website's visual content.</p>
+        </div>
+
+        <!-- Section 5: Intellectual Property -->
+        <div class="section">
+            <div class="section-number">5.</div>
+            <h2>Intellectual Property</h2>
+            <p>Upon final payment, ownership of the website's visual design and content shall transfer to the Client. The Developers retain the right to showcase the project in professional portfolios.</p>
+        </div>
+
+        <!-- Section 6: Confidentiality -->
+        <div class="section">
+            <div class="section-number">6.</div>
+            <h2>Confidentiality</h2>
+            <p>Both parties agree to keep all trade secrets, customer data, and internal business logistics strictly confidential.</p>
+        </div>
+
+        <!-- Section 7: Termination & Delays -->
+        <div class="section">
+            <div class="section-number">7.</div>
+            <h2>Termination &amp; Delays</h2>
+            <ul>
+                <li>If the Client terminates the project before completion, the Deposit remains non-refundable.</li>
+                <li>Delays caused by the late provision of content or media from the Client may extend the project timeline.</li>
+            </ul>
+        </div>
+
+        <!-- Section 8: Governing Law -->
+        <div class="section">
+            <div class="section-number">8.</div>
+            <h2>Governing Law</h2>
+            <p>This Agreement shall be governed by and construed in accordance with the Laws of Malawi.</p>
+        </div>
+
+        <!-- Signatures -->
+        <div class="signatures">
+            <div class="signature-title">Signatories</div>
+
+            <!-- Developers Signatures -->
+            <div class="signature-group">
+                <span class="signature-label">For The Developers:</span>
+                
+                <div class="signature-block">
+                    <div class="signature-line">
+                        <label>Name:</label>
+                        <div class="line"></div>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Yamikani Mbuna (Project Manager)</p>
+                    <div class="signature-line">
+                        <label>Date:</label>
+                        <div class="line"></div>
+                    </div>
+                </div>
+
+                <div class="signature-block">
+                    <div class="signature-line">
+                        <label>Name:</label>
+                        <div class="line"></div>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Noman Adil (Lead Developer)</p>
+                    <div class="signature-line">
+                        <label>Date:</label>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Client Signature -->
+            <div class="signature-group">
+                <span class="signature-label">For The Client (Central Poultry 2000 Ltd):</span>
+                
+                <div class="signature-block">
+                    <div class="signature-line">
+                        <label>Name:</label>
+                        <div class="line"></div>
+                    </div>
+                    <div class="signature-line">
+                        <label>Title:</label>
+                        <div class="line"></div>
+                    </div>
+                    <div class="signature-line">
+                        <label>Signature:</label>
+                        <div class="line"></div>
+                    </div>
+                    <div class="signature-line">
+                        <label>Date:</label>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2026 Creative spacesmw. All rights reserved.</p>
+            <p>Digital Transformation Agreement for Central Poultry (2000) Ltd</p>
+        </div>
+    </div>
+</body>
+</html>
